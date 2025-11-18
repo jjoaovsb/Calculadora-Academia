@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #5E4B8D, #C9C9C9); 
+            color: #333;
+            font-family: 'Poppins', sans-serif; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculadora {
+            background-color: #ffffff; 
+            border-radius: 20px; 
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); 
+            width: 400px; 
+            text-align: center;
+            transition: transform 0.3s; 
+        }
+        .calculadora:hover {
+            transform: translateY(-5px); 
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #5E4B8D; 
+            font-weight: 600; 
+            font-size: 24px; 
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input {
+            width: calc(100% - 12px);
+            height: 50px;
+            margin: 15px 0;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 1px solid #cccccc; 
+            background-color: #f7f7f7;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #5E4B8D; 
+            outline: none; 
+        }
+        .botao {
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            background-color: #5E4B8D; 
+            color: #ffffff; 
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.2s; 
+        }
+        .botao:hover {
+            background-color: #7A5C99; 
+            transform: translateY(-2px); 
+        }
+        #Resultado {
+            background-color: #f0f0f0; 
+            width: 100%;
+            height: auto; 
+            margin: 10px 0;
+            font-size: 25px;
+            color: #333;
+            text-align: center; 
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #5E4B8D; 
+            word-wrap: break-word; 
+            overflow-wrap: break-word; 
+        }
+    </style>
+</head>
+<body>
+    <div class="calculadora">
+        <h1>Calculadora de IMC</h1>
+        <label for="peso">Peso (kg)</label>
+        <input type="number" id="peso" placeholder="Peso (kg)" required>
+        <label for="altura">Altura (m)</label>
+        <input type="number" id="altura" placeholder="Altura (m)" required>
+        <p id="Resultado">IMC: 0</p>
+        <button class="botao" onclick="calcularIMC()">Calcular</button>
+    </div>
+
+    <script>
+        function calcularIMC() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            let resultadoText;
+
+            if (peso > 0 && altura > 0 && altura <= 3) {
+                const imc = (peso / (altura * altura)).toFixed(2);
+                resultadoText = "IMC: " + imc;
+
+                if (imc < 18.5) {
+                    resultadoText += " (Abaixo do peso)";
+                } else if (imc >= 18.5 && imc < 24.9) {
+                    resultadoText += " (Peso normal)";
+                } else if (imc >= 25 && imc < 29.9) {
+                    resultadoText += " (Sobrepeso)";
+                } else {
+                    resultadoText += " (Obesidade)";
+                }
+            } else {
+                resultadoText = "Por favor, insira valores válidos";
+            }
+
+            document.getElementById('Resultado').innerHTML = resultadoText;
+        }
+    </script>
+</body>
+</html>
